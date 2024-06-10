@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Comisiones</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="my-4">Calculadora de Comisiones</h1>
+    <div class="mb-3">
+      <label for="carSelect" class="form-label">Selecciona el tipo de auto:</label>
+      <select id="carSelect" class="form-select">
+        <option value="CITY">CITY</option>
+        <option value="BRV">BRV</option>
+        <option value="HRV">HRV</option>
+        <option value="CIVIC">CIVIC</option>
+        <option value="CRV">CRV</option>
+        <option value="ACCORD">ACCORD</option>
+        <option value="PILOT">PILOT</option>
+        <option value="ODYSSEY">ODYSSEY</option>
+        <option value="CRV HEV">CRV HEV</option>
+        <option value="ACCORD HEV">ACCORD HEV</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="unitsSoldLevel" class="form-label">Nivel de unidades vendidas:</label>
+      <select id="unitsSoldLevel" class="form-select">
+        <option value="1-4">1-4 Unidades</option>
+        <option value="5-7">5-7 Unidades</option>
+        <option value="8-10">8-10 Unidades</option>
+        <option value="11+">11+ Unidades</option>
+      </select>
+    </div>
+    <button id="calculateButton" class="btn btn-primary btn-lg">Calcular Comisión</button>
+    <button id="exportButton" class="btn btn-secondary btn-lg">Exportar a PDF</button>
+    <p class="result mt-3" id="result"></p>
+    <table id="resultTable" class="table">
+      <thead>
+        <tr>
+          <th>Tipo de Auto</th>
+          <th>Nivel de Unidades Vendidas</th>
+          <th>Comisión Total</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <p class="result mt-3" id="totalComision">Total Comisión: $0</p>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+
+</html>
