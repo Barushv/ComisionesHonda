@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Comisiones Honda – PWA</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.png" />
+    <meta name="theme-color" content="#111827" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Vendor (puedes localizarlos luego en /vendor) -->
+    <script src="https://cdn.jsdelivr.net/npm/dexie@4.0.8/dist/dexie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Config global -->
+    <script src="js/settings.js"></script>
+
+    <!-- Entrada única como MÓDULO: app.js importará store/calc/export/ui -->
+    <script type="module" src="js/app.js"></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="title">Comisiones Honda</div>
+        <div class="period">
+            <input id="monthPicker" type="month" />
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <div class="stat"><span id="units">0</span><label>Unidades</label></div>
+            <div class="stat"><span id="tier">1-4</span><label>Tramo</label></div>
+            <div class="stat"><span id="baseTotal">$0</span><label>Base</label></div>
+            <div class="stat"><span id="bonusTotal">$0</span><label>Bonos</label></div>
+            <div class="stat total"><span id="grandTotal">$0</span><label>Total</label></div>
+        </section>
+
+        <section class="actions">
+            <button id="addSaleBtn" class="btn primary">+ Nueva venta</button>
+            <div class="spacer"></div>
+            <button id="exportXlsxBtn" class="btn">Exportar XLSX</button>
+            <button id="shareBtn" class="btn">Compartir</button>
+            <button id="sendEmailBtn" class="btn">Enviar correo</button>
+        </section>
+
+        <section id="salesList" class="list"></section>
+    </main>
+
+    <!-- Banner de actualización (SW) -->
+    <div id="updateBanner" class="update hidden">
+        <span>Hay una actualización disponible.</span>
+        <button id="reloadBtn" class="btn small">Actualizar</button>
+    </div>
+
+    <!-- Modal Nueva Venta -->
+    <dialog id="saleDialog">
+        <form method="dialog" id="saleForm">
+            <h3>Registrar venta</h3>
+
+            <label>Vehículo / Versión</label>
+            <input id="searchInput" type="search" placeholder="Buscar… (ej. CITY, CRV, TOURING)" />
+            <select id="versionSelect" required></select>
+
+            <div class="row">
+                <label>Tipo de operación</label>
+                <div class="segmented">
+                    <input type="radio" id="tipoContado" name="tipo" value="contado" checked>
+                    <label for="tipoContado">Contado</label>
+                    <input type="radio" id="tipoCredito" name="tipo" value="credito">
+                    <label for="tipoCredito">Crédito</label>
+                </div>
+            </div>
+
+            <div id="bankRow" class="row hidden">
+                <label>Banco</label>
+                <select id="bankSelect">
+                    <option value="hf">Honda Finance</option>
+                    <option value="banorte">Banorte</option>
+                    <option value="santander">Santander</option>
+                </select>
+            </div>
+
+            <div class="preview" id="salePreview">Previsualización: —</div>
+
+            <menu>
+                <button value="cancel" class="btn">Cancelar</button>
+                <button id="saveSaleBtn" value="default" class="btn primary">Guardar</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <!-- Modal Enviar correo -->
+    <dialog id="emailDialog">
+        <form method="dialog" id="emailForm">
+            <h3>Enviar XLSX por correo</h3>
+            <label>Para</label>
+            <input id="emailTo" type="email" placeholder="tucorreo@empresa.com" required />
+            <menu>
+                <button value="cancel" class="btn">Cancelar</button>
+                <button id="sendEmailNowBtn" value="default" class="btn primary">Enviar</button>
+            </menu>
+            <small>Se enviará vía Firebase Function segura.</small>
+        </form>
+    </dialog>
+</body>
+
+</html>
