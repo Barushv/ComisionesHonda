@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>Comisiones Honda – PWA</title>
@@ -11,101 +10,158 @@
 
     <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- Vendor (puedes localizarlos luego en /vendor) -->
+    <!-- Vendor -->
     <script src="https://cdn.jsdelivr.net/npm/dexie@4.0.8/dist/dexie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-    <!-- Config global -->
+    <!-- Config -->
     <script src="js/settings.js"></script>
 
-    <!-- Entrada única como MÓDULO: app.js importará store/calc/export/ui -->
+    <!-- Entrada única como módulo -->
     <script type="module" src="js/app.js"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <header class="topbar">
-        <div class="title">Comisiones Honda</div>
-        <div class="period">
-            <input id="monthPicker" type="month" />
-        </div>
+      <div class="title">Comisiones Honda</div>
+      <div class="period">
+        <input id="monthPicker" type="month" />
+      </div>
     </header>
 
     <main class="container">
-        <section class="stats">
-            <div class="stat"><span id="units">0</span><label>Unidades</label></div>
-            <div class="stat"><span id="tier">1-4</span><label>Tramo</label></div>
-            <div class="stat"><span id="baseTotal">$0</span><label>Base</label></div>
-            <div class="stat"><span id="bonusTotal">$0</span><label>Bonos</label></div>
-            <div class="stat total"><span id="grandTotal">$0</span><label>Total</label></div>
-        </section>
+      <!-- ===== KPIs ===== -->
+      <section class="stats">
+        <div class="stat"><span id="units">0</span><label>Unidades</label></div>
+        <div class="stat"><span id="tier">1-4</span><label>Tramo</label></div>
 
-        <section class="actions">
-            <button id="addSaleBtn" class="btn primary">+ Nueva venta</button>
-            <div class="spacer"></div>
-            <button id="exportXlsxBtn" class="btn">Exportar XLSX</button>
-            <button id="shareBtn" class="btn">Compartir</button>
-            <button id="sendEmailBtn" class="btn">Enviar correo</button>
-        </section>
+        <div class="stat"><span id="baseTotal">$0</span><label>Base (autos)</label></div>
+        <div class="stat"><span id="bonusTotal">$0</span><label>Financiamiento</label></div>
 
-        <section id="salesList" class="list"></section>
+        <div class="stat"><span id="segurosTotal">$0</span><label>Seguros</label></div>
+        <div class="stat"><span id="garantiasTotal">$0</span><label>Garantías</label></div>
+        <div class="stat"><span id="accesoriosTotal">$0</span><label>Accesorios 10%</label></div>
+        <div class="stat"><span id="bonosExtraTotal">$0</span><label>Bonos extra</label></div>
+        <div class="stat"><span id="bonosDemoTotal">$0</span><label>Bonos demo</label></div>
+
+        <div class="stat total"><span id="grandTotal">$0</span><label>Total mes</label></div>
+      </section>
+      <!-- ===== /KPIs ===== -->
+
+      <section class="actions">
+        <button id="addSaleBtn" class="btn primary">+ Nueva venta</button>
+        <div class="spacer"></div>
+        <button id="exportXlsxBtn" class="btn">Exportar XLSX</button>
+        <button id="shareBtn" class="btn">Compartir</button>
+        <button id="sendEmailBtn" class="btn">Enviar correo</button>
+      </section>
+
+      <section id="salesList" class="list"></section>
     </main>
 
     <!-- Banner de actualización (SW) -->
     <div id="updateBanner" class="update hidden">
-        <span>Hay una actualización disponible.</span>
-        <button id="reloadBtn" class="btn small">Actualizar</button>
+      <span>Hay una actualización disponible.</span>
+      <button id="reloadBtn" class="btn small">Actualizar</button>
     </div>
 
     <!-- Modal Nueva Venta -->
     <dialog id="saleDialog">
-        <form method="dialog" id="saleForm">
-            <h3>Registrar venta</h3>
+      <form method="dialog" id="saleForm">
+        <h3>Registrar venta</h3>
 
-            <label>Vehículo / Versión</label>
-            <input id="searchInput" type="search" placeholder="Buscar… (ej. CITY, CRV, TOURING)" />
-            <select id="versionSelect" required></select>
+        <label>Vehículo / Versión</label>
+        <input id="searchInput" type="search" placeholder="Buscar… (ej. CITY, CRV, TOURING)" />
+        <select id="versionSelect" required></select>
 
-            <div class="row">
-                <label>Tipo de operación</label>
-                <div class="segmented">
-                    <input type="radio" id="tipoContado" name="tipo" value="contado" checked>
-                    <label for="tipoContado">Contado</label>
-                    <input type="radio" id="tipoCredito" name="tipo" value="credito">
-                    <label for="tipoCredito">Crédito</label>
-                </div>
-            </div>
+        <div class="row">
+          <label>Tipo de operación</label>
+          <div class="segmented">
+            <input type="radio" id="tipoContado" name="tipo" value="contado" checked />
+            <label for="tipoContado">Contado</label>
+            <input type="radio" id="tipoCredito" name="tipo" value="credito" />
+            <label for="tipoCredito">Crédito</label>
+          </div>
+        </div>
 
-            <div id="bankRow" class="row hidden">
-                <label>Banco</label>
-                <select id="bankSelect">
-                    <option value="hf">Honda Finance</option>
-                    <option value="banorte">Banorte</option>
-                    <option value="santander">Santander</option>
-                </select>
-            </div>
+        <div id="bankRow" class="row hidden">
+          <label>Banco</label>
+          <select id="bankSelect">
+            <option value="hf">Honda Finance</option>
+            <option value="banorte">Banorte</option>
+            <option value="santander">Santander</option>
+          </select>
+        </div>
 
-            <div class="preview" id="salePreview">Previsualización: —</div>
+        <!-- ====== EXTRAS ====== -->
+        <h4 style="margin-top: 14px; margin-bottom: 8px">Extras</h4>
 
-            <menu>
-                <button value="cancel" class="btn">Cancelar</button>
-                <button id="saveSaleBtn" value="default" class="btn primary">Guardar</button>
-            </menu>
-        </form>
+        <!-- Seguro -->
+        <div class="row">
+          <label style="display: flex; align-items: center; gap: 10px"> <input id="seguroSwitch" type="checkbox" /> Seguro </label>
+          <select id="seguroYears" style="margin-top: 6px">
+            <option value="0">Años…</option>
+            <option value="1">1 año</option>
+            <option value="2">2 años</option>
+            <option value="3">3 años</option>
+            <option value="4">4 años</option>
+            <option value="5">5 años</option>
+            <option value="6">6 años</option>
+          </select>
+        </div>
+
+        <!-- Garantía extendida -->
+        <div class="row">
+          <label style="display: flex; align-items: center; gap: 10px"> <input id="garantiaSwitch" type="checkbox" /> Garantía extendida </label>
+          <select id="garantiaYears" style="margin-top: 6px">
+            <option value="0">Años…</option>
+            <option value="1">1 año</option>
+            <option value="2">2 años</option>
+            <option value="3">3 años</option>
+            <option value="4">4 años</option>
+          </select>
+        </div>
+
+        <!-- Accesorios -->
+        <div class="row">
+          <label>Monto de accesorios vendidos (MXN)</label>
+          <input id="accesoriosVenta" type="number" min="0" inputmode="numeric" placeholder="0" />
+          <small class="meta">La app calcula 10% como comisión.</small>
+        </div>
+
+        <!-- Bonos adicionales -->
+        <div class="row">
+          <label>Bono extra (campañas del mes)</label>
+          <input id="bonoExtra" type="number" min="0" inputmode="numeric" placeholder="0" />
+        </div>
+
+        <!-- Demo -->
+        <div class="row">
+          <label style="display: flex; align-items: center; gap: 10px"> <input id="demoSwitch" type="checkbox" /> Vehículo demo </label>
+          <input id="bonoDemo" type="number" min="0" inputmode="numeric" placeholder="Bono demo $0" />
+        </div>
+        <!-- ====== /EXTRAS ====== -->
+
+        <div class="preview" id="salePreview">Resumen: —</div>
+
+        <menu>
+          <button value="cancel" class="btn">Cancelar</button>
+          <button id="saveSaleBtn" value="default" class="btn primary">Guardar</button>
+        </menu>
+      </form>
     </dialog>
 
     <!-- Modal Enviar correo -->
     <dialog id="emailDialog">
-        <form method="dialog" id="emailForm">
-            <h3>Enviar XLSX por correo</h3>
-            <label>Para</label>
-            <input id="emailTo" type="email" placeholder="tucorreo@empresa.com" required />
-            <menu>
-                <button value="cancel" class="btn">Cancelar</button>
-                <button id="sendEmailNowBtn" value="default" class="btn primary">Enviar</button>
-            </menu>
-            <small>Se enviará vía Firebase Function segura.</small>
-        </form>
+      <form method="dialog" id="emailForm">
+        <h3>Enviar XLSX por correo</h3>
+        <label>Para</label>
+        <input id="emailTo" type="email" placeholder="tucorreo@empresa.com" required />
+        <menu>
+          <button value="cancel" class="btn">Cancelar</button>
+          <button id="sendEmailNowBtn" value="default" class="btn primary">Enviar</button>
+        </menu>
+        <small>Se enviará vía Firebase Function segura.</small>
+      </form>
     </dialog>
-</body>
-
+  </body>
 </html>

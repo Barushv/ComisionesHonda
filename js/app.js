@@ -1,9 +1,9 @@
 // /js/app.js
-import { setData, setMonth, refreshList, bindDialogs, toast } from "./ui.js";
+import { setData, setAddons, setMonth, refreshList, bindDialogs, toast } from "./ui.js";
 import { shareXlsxOrDownload } from "./export.js";
 
 (async function init() {
-  // Mes por defecto
+  // === Mes por defecto ===
   const monthInput = document.getElementById("monthPicker");
   const today = new Date();
   const m = today.toISOString().slice(0, 7);
@@ -16,19 +16,29 @@ import { shareXlsxOrDownload } from "./export.js";
     });
   }
 
-  // Cargar data de comisiones (con alerta si falta el JSON)
+  // === Cargar commissions.json (BASE + bonos por banco) ===
   let data;
   try {
     const resp = await fetch("data/commissions.json", { cache: "no-store" });
     if (!resp.ok) throw new Error("No se encontró data/commissions.json");
     data = await resp.json();
   } catch (e) {
-    alert(
-      "No se pudo cargar data/commissions.json.\nVerifica la ruta y el archivo."
-    );
+    alert("No se pudo cargar data/commissions.json.\nVerifica la ruta y el archivo.");
     throw e;
   }
   setData(data);
+
+  // === PASO 3.B: Cargar addons.json (seguros, garantías, accesorios %) ===
+  let addons;
+  try {
+    const resp2 = await fetch("data/addons.json", { cache: "no-store" });
+    if (!resp2.ok) throw new Error("No se encontró data/addons.json");
+    addons = await resp2.json();
+  } catch (e) {
+    alert("No se pudo cargar data/addons.json.\nVerifica la ruta y el archivo.");
+    throw e;
+  }
+  setAddons(addons);
 
   // UI
   bindDialogs();
@@ -36,11 +46,10 @@ import { shareXlsxOrDownload } from "./export.js";
 
   // Un solo handler para COMPARTIR (con fallback a descarga)
   async function handleShare() {
-    const totals = await refreshList(); // asegura totales al día
-    const sales = window.SALES_CACHE || []; // lista actual del mes
-    const month = monthInput
-      ? monthInput.value
-      : new Date().toISOString().slice(0, 7);
+    const totals = await refreshList(); // asegurar totales al día
+    const sales = window.SALES_FOR_EXPORT || window.SALES_CACHE || [];
+    // ventas del mes actual
+    const month = monthInput ? monthInput.value : new Date().toISOString().slice(0, 7);
     const filename = `Comisiones_${month}.xlsx`;
 
     try {
@@ -75,7 +84,7 @@ import { shareXlsxOrDownload } from "./export.js";
       const reloadBtn = document.getElementById("reloadBtn");
       if (reloadBtn) reloadBtn.onclick = () => location.reload();
     } catch (e) {
-      // si no se puede registrar, no interrumpe la app
+      // si falla el SW, no bloquea la app
     }
   }
 })();
