@@ -1,4 +1,4 @@
-const CACHE = 'hondago-commissions';
+const CACHE = 'hondago-commissions-v3';
 const ASSETS = [
   '/', '/index.html', '/manifest.json',
   '/assets/css/styles.css',

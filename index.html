@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +9,7 @@
   <meta name="theme-color" content="#0b0f14" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
+
 <body>
   <header class="topbar">
     <div class="brand">
@@ -21,6 +23,8 @@
       <button id="addSaleBtn" class="btn primary">Registrar venta</button>
       <button id="shareBtn" class="btn">Exportar XLSX</button>
       <button id="clearAllBtn" class="btn">Limpiar todo</button>
+      <button id="aboutBtn" class="btn">Acerca de</button>
+
     </div>
   </header>
 
@@ -99,6 +103,21 @@
     </form>
   </dialog>
 
+  <dialog id="aboutDialog">
+    <article style="max-width:520px">
+      <h3>Acerca de</h3>
+      <p><strong>HondaGo · Comisiones</strong></p>
+      <p>Desarrollador: <strong>Israel Ortiz (IO)</strong></p>
+      <p>Contacto: <a href="mailto:tu.correo@dominio.com">fortiz.hondamontejo@gmail.com</a></p>
+      <p>Versión: <span id="aboutVersion">1.0</span></p>
+      <p>© 2025. Todos los derechos reservados.</p>
+      <menu class="dialog-actions">
+        <button class="btn" id="aboutCloseBtn">Cerrar</button>
+      </menu>
+    </article>
+  </dialog>
+
+
   <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.7/dist/dexie.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
@@ -108,4 +127,5 @@
   <script type="module" src="assets/js/ui.js"></script>
   <script type="module" src="assets/js/app.js"></script>
 </body>
+
 </html>
