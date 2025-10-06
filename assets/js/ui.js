@@ -54,6 +54,23 @@ export function bindDialogs(){
   if(search && select){ search.addEventListener("input", ()=>{ const q=search.value.toUpperCase(); const opts=versiones.filter(v=>v.toUpperCase().includes(q));
     select.innerHTML=opts.map(v=>`<option value="${v}">${v}</option>`).join(""); }); }
   const save=document.getElementById("saveSaleBtn"); if(save) save.onclick=onSave;
+
+  // === FIX robusto: Cancelar siempre cierra ===
+  const candidate = form.querySelector('button[type="reset"], button#cancelBtn, button[data-cancel]');
+  if (candidate) {
+    candidate.setAttribute('type','button');
+    candidate.addEventListener('click',(e)=>{ e.preventDefault(); dlg.close(); });
+  }
+  dlg.addEventListener('click',(ev)=>{
+    const btn = ev.target.closest('button');
+    if (!btn) return;
+    const label = (btn.textContent||'').trim().toLowerCase();
+    if (btn.dataset.cancel !== undefined || btn.id === 'cancelBtn' || btn.type === 'reset' || label === 'cancelar') {
+      ev.preventDefault(); dlg.close();
+    }
+  });
+  form.addEventListener('reset', ()=> { setTimeout(()=>dlg.close(), 0); });
+  // ============================================
 }
 
 function openDialogForCreate(){ form.dataset.mode="create"; form.dataset.id=""; form.reset();
@@ -81,5 +98,4 @@ async function onSave(ev){ ev.preventDefault();
   const doc={ id:isEdit?form.dataset.id:crypto.randomUUID(), fecha:fecha.toLocaleDateString('es-MX'), mesClave, version, esCredito, seguroAnios, garantiaAnios, accesoriosCaptura:accesorios, bonoAsesor, bonoDemo, tramo:m.t, q1VentaMonto:m.venta, q1FinancMonto:m.financ, q2SeguroMonto:m.seg, q2GarantiaMonto:m.gar, q2AccesorioMonto:m.acc, q2IncentivosMonto:m.inc, totalQ1:m.totalQ1, totalQ2:m.totalQ2, total:m.total, createdAt:Date.now(), updatedAt:Date.now() };
   if(isEdit) await updateSale(doc.id, doc); else await addSale(doc); dlg.close(); await recalcMonth(); toast(isEdit?"Venta actualizada":"Venta registrada"); }
 
-// Exports
 export { refreshList as render, recalcMonth as normalize };

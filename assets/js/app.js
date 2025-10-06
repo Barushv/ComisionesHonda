@@ -1,5 +1,47 @@
 import { setData, setAddons, setMonth, bindDialogs, render, normalize } from './ui.js';
 
+function ensureAboutDialog(){
+  // Create dialog if missing
+  let dlg = document.getElementById('aboutDialog');
+  if (!dlg){
+    dlg = document.createElement('dialog');
+    dlg.id = 'aboutDialog';
+    dlg.innerHTML = `
+      <article style="max-width:560px">
+        <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h3 style="margin:0">Acerca de</h3>
+          <button id="aboutCloseBtn" class="btn" type="button">Cerrar</button>
+        </header>
+        <div style="color:#cbd5e1;line-height:1.5">
+          <p><strong>HondaGo · Comisiones</strong></p>
+          <p>Desarrollador: <strong>Israel Ortiz (IO)</strong></p>
+          <p>Versión: <span id="aboutVersion">v1.0</span></p>
+          <p>Contacto: <a href="mailto:io@example.com">io@example.com</a></p>
+        </div>
+      </article>
+    `;
+    document.body.appendChild(dlg);
+  }
+  // Wire close
+  const closeBtn = dlg.querySelector('#aboutCloseBtn');
+  if (closeBtn && !closeBtn.dataset.bound){
+    closeBtn.dataset.bound = '1';
+    closeBtn.addEventListener('click', ()=> dlg.close());
+  }
+  // Close on cancel (Esc)
+  dlg.addEventListener('cancel', (e)=>{ e.preventDefault(); dlg.close(); });
+  return dlg;
+}
+
+function wireAbout(){
+  const dlg = ensureAboutDialog();
+  const btn = document.getElementById('aboutBtn');
+  if (btn && !btn.dataset.bound){
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', ()=> dlg.showModal());
+  }
+}
+
 (async()=>{
   const [catalog, addons] = await Promise.all([
     fetch('assets/data/commissions.json').then(r=>r.json()),
@@ -14,9 +56,9 @@ import { setData, setAddons, setMonth, bindDialogs, render, normalize } from './
   if (el) el.textContent = new Intl.DateTimeFormat('es-MX',{month:'long',year:'numeric'}).format(now);
 
   bindDialogs();
+  wireAbout();        // asegura que el botón Acerca de funcione
   await render();
-  // Normaliza todas las ventas al tramo actual
-  await normalize();
+  await normalize?.();
 
   document.getElementById('shareBtn')?.addEventListener('click', async ()=>{
     const sales=window.SALES_FOR_EXPORT||[]; let totalQ1=0,totalQ2=0;
