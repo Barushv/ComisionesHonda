@@ -24,12 +24,24 @@
   ],
   "mapFamilia": [
     [
-      "CITY",
-      "CITY"
+      "ACCORD.*HEV",
+      "ACCORD HEV"
     ],
     [
-      "CIVIC SPORT HEV|CIVIC TOURING HEV",
+      "CIVIC.*HEV",
       "CIVIC HEV"
+    ],
+    [
+      "CRV.*HEV",
+      "CRV HEV"
+    ],
+    [
+      "ODDYSEY|ODYSSEY",
+      "ODYSSEY"
+    ],
+    [
+      "CITY",
+      "CITY"
     ],
     [
       "CIVIC",
@@ -44,24 +56,12 @@
       "HRV"
     ],
     [
-      "CRV SPORT TOURING HEV|CRV TOURING HEV",
-      "CRV HEV"
-    ],
-    [
       "CRV",
       "CRV"
     ],
     [
-      "ACCORD TOURING HEV",
-      "ACCORD HEV"
-    ],
-    [
       "ACCORD",
       "ACCORD"
-    ],
-    [
-      "ODDYSEY|ODYSSEY",
-      "ODYSSEY"
     ],
     [
       "PILOT",
@@ -136,55 +136,38 @@
       "11+": 8000
     }
   },
-  "q1Financ": {
-    "CITY": {
-      "1-4": 800,
-      "5-7": 900,
-      "8-10": 1000,
-      "11+": 1050
-    },
-    "BRV": {
-      "1-4": 900,
-      "5-7": 1100,
-      "8-10": 1200,
-      "11+": 1250
-    },
-    "HRV": {
-      "1-4": 900,
-      "5-7": 1100,
-      "8-10": 1200,
-      "11+": 1250
-    },
-    "CIVIC": {
-      "1-4": 1200,
-      "5-7": 1400,
-      "8-10": 1500,
-      "11+": 1600
-    },
-    "CRV": {
-      "1-4": 1500,
-      "5-7": 1700,
-      "8-10": 1900,
-      "11+": 2000
-    },
-    "ACCORD": {
-      "1-4": 1500,
-      "5-7": 1700,
-      "8-10": 1900,
-      "11+": 2000
-    },
-    "ODYSSEY": {
-      "1-4": 2500,
-      "5-7": 2700,
-      "8-10": 3000,
-      "11+": 3250
-    },
-    "PILOT": {
-      "1-4": 2500,
-      "5-7": 2700,
-      "8-10": 3000,
-      "11+": 3250
-    }
+  "q1FinancVersion": {
+    "CITY SPORT": 1300,
+    "CITY PRIME": 1300,
+    "CITY TOURING": 1300,
+    "CIVIC ISTYLE": 1700,
+    "CIVIC SPORT HEV": 1700,
+    "CIVIC TOURING HEV": 1700,
+    "BRV UNIQ": 1600,
+    "BRV TOURING": 1600,
+    "HRV UNIQ": 1600,
+    "HRV SPORT": 1600,
+    "HRV TOURING": 1600,
+    "CRV TURBO PLUS": 1900,
+    "CRV TOURING": 1900,
+    "CRV TOURING HEV": 1900,
+    "CRV SPORT TOURING HEV": 1900,
+    "ACCORD PRIME": 2100,
+    "ACCORD TOURING HEV": 2100,
+    "ODDYSEY TOURNIG": 2900,
+    "ODYSSEY BLACK EDITION": 2900,
+    "PILOT TOURING": 3100,
+    "PILOT BLACK EDITION": 3100
+  },
+  "q1FinancFlat": {
+    "CITY": 1300,
+    "BRV": 1600,
+    "HRV": 1600,
+    "CIVIC": 1700,
+    "CRV": 1900,
+    "ACCORD": 2100,
+    "ODYSSEY": 2900,
+    "PILOT": 3100
   },
   "q2Seguros": {
     "CITY": {
