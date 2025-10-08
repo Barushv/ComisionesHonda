@@ -1,1 +1,1 @@
-export function checkForUpdates(){ /* noop: SW se encarga */ }
+export function checkForUpdates(){ /* PWA updates handled by SW */ }

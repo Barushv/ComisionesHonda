@@ -1,15 +1,240 @@
-:root{--bg:#0F1220;--surface:#1A1F2E;--surface-alt:#21273A;--primary:#7C3AED;--accent:#22D3EE;--text:#E5E7EB;--text-2:#9CA3AF;--divider:#2A2F45;}
-html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui;height:100%}
-.app-header{background:rgba(26,31,46,.9);backdrop-filter:blur(6px)}
-.logo-io{width:42px;height:32px;border-radius:999px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.card-sale{background:#21273A;border-radius:16px;padding:14px;border:1px solid var(--divider)}
-.card-sale .title{font-weight:700}.card-sale .meta{color:var(--text-2)}
-.material-symbols-rounded{font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
-.app-tabbar{position:sticky;bottom:0;background:rgba(26,31,46,.95);backdrop-filter:blur(6px)}
-.app-tabbar .container-fluid{position:relative;min-height:72px}
-.btn-fab{width:72px;height:48px;border-radius:999px;background:var(--primary)!important;color:#fff!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:0 8px 24px rgba(124,58,237,.35),0 2px 8px rgba(0,0,0,.35);position:absolute;left:50%;top:0;transform:translate(-50%,-50%)}
-.tab-action{display:inline-flex;align-items:center;gap:10px;color:var(--text);background:transparent;border:1px solid var(--divider);border-radius:12px;padding:10px 14px}
-.tab-action--danger{color:#fca5a5;border-color:rgba(239,68,68,.35)}
+:root {
+  --bg: #0f1220;
+  --surface: #1a1f2e;
+  --surface-alt: #21273a;
+  --primary: #7c3aed;
+  --accent: #22d3ee;
+  --text: #e5e7eb;
+  --text-2: #9ca3af;
+  --ok: #10b981;
+  --divider: #2a2f45;
+}
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui;
+}
+.app-header {
+  background: rgba(26, 31, 46, 0.9);
+  backdrop-filter: blur(6px);
+}
+.logo-io {
+  width: 42px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.chip {
+  border-radius: 18px;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.chip-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.chip-accent {
+  background: var(--accent);
+  color: #05151a;
+}
+.chip-success {
+  background: var(--ok);
+  color: #04140f;
+}
+.app-main {
+  min-height: calc(100dvh - 120px);
+}
+.card-sale {
+  background: #21273a;
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid var(--divider);
+}
+.card-sale .title {
+  font-weight: 700;
+}
+.card-sale .meta {
+  color: var(--text-2);
+}
+.material-symbols-rounded {
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+}
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--divider);
+  color: var(--text-2);
+  transition: all 0.15s;
+}
+.icon-btn:hover {
+  color: #fff;
+  background: rgba(124, 58, 237, 0.18);
+  border-color: var(--primary);
+}
+.icon-btn:active {
+  transform: translateY(1px);
+}
+.icon-btn--danger:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
+  color: #fff;
+}
+.card-sale .actions {
+  display: inline-flex;
+  gap: 8px;
+}
+.app-tabbar {
+  position: sticky;
+  bottom: 0;
+  background: rgba(26, 31, 46, 0.95);
+  backdrop-filter: blur(6px);
+}
+.app-tabbar .container-fluid {
+  position: relative;
+  min-height: 72px;
+}
+.app-tabbar .btn-fab {
+  width: 72px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--primary) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35), 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s, box-shadow 0.2s;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+.app-tabbar::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 96px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 12, 22, 0.65);
+  border-radius: 14px;
+  filter: blur(6px);
+  pointer-events: none;
+}
+.tab-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 10px 14px;
+  transition: all 0.15s;
+}
+.tab-action:hover {
+  background: var(--surface-alt);
+  border-color: var(--primary);
+  color: #fff;
+}
+.tab-action--danger {
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.tab-action--danger:hover {
+  color: #fff;
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.18);
+}
 /* Offcanvas menu contrast */
-.app-drawer{color:var(--text);--bs-list-group-color:var(--text);--bs-list-group-bg:transparent;--bs-list-group-border-color:var(--divider);--bs-list-group-action-color:var(--text);--bs-list-group-action-hover-color:#fff;--bs-list-group-action-hover-bg:var(--surface-alt);--bs-list-group-action-active-color:#fff;--bs-list-group-action-active-bg:var(--surface-alt)}
-.app-drawer .list-group-item{background:transparent!important;color:var(--text)!important;border-color:var(--divider)!important;opacity:1!important}
+.app-drawer {
+  color: var(--text);
+  --bs-list-group-color: var(--text);
+  --bs-list-group-bg: transparent;
+  --bs-list-group-border-color: var(--divider);
+  --bs-list-group-action-color: var(--text);
+  --bs-list-group-action-hover-color: #fff;
+  --bs-list-group-action-hover-bg: var(--surface-alt);
+  --bs-list-group-action-active-color: #fff;
+  --bs-list-group-action-active-bg: var(--surface-alt);
+}
+.app-drawer .list-group-item {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-color: var(--divider) !important;
+  opacity: 1 !important;
+}
+
+/* ===== Parche Neo Dark para offcanvas y modal ===== */
+
+/* Offcanvas (menú hamburguesa): forzamos tema oscuro de Bootstrap 5 */
+.app-drawer {
+  --bs-offcanvas-bg: var(--surface);
+  --bs-offcanvas-color: var(--text);
+  --bs-offcanvas-border-color: var(--divider);
+}
+.app-drawer .offcanvas-header {
+  border-bottom: 1px solid var(--divider);
+}
+
+/* Modal (Registro de venta) */
+.modal-content {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--divider);
+}
+.modal-header,
+.modal-footer {
+  border-color: var(--divider) !important;
+}
+/* Controles dentro del modal */
+.modal .form-label,
+.modal .form-check-label {
+  color: var(--text-2) !important;
+}
+.modal .form-control,
+.modal .form-select {
+  background: var(--surface-alt) !important;
+  color: var(--text) !important;
+  border-color: var(--divider) !important;
+}
+.modal .form-control::placeholder {
+  color: var(--text-2) !important;
+  opacity: 0.9;
+}
+.modal .text-secondary {
+  color: var(--text-2) !important;
+}
+/* Cerrar modal en claro por defecto: lo invertimos */
+.btn-close-white {
+  filter: invert(1) grayscale(100%);
+}
+
+/* Header: visibilidad de íconos y mes */
+.app-header .material-symbols-rounded {
+  color: var(--text-2);
+}
+.app-header .material-symbols-rounded:hover {
+  color: #fff;
+}
+#activeMonth {
+  color: var(--text-2);
+}
+
+/* Salvavidas: si algún elemento fuerza bg blanco, lo adaptamos */
+[data-theme="neo-dark"] .bg-white {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+}
