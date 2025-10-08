@@ -1,4 +1,4 @@
-const CACHE = 'comisionesgo-new';
+const CACHE = 'comisionesgo-v6';
 const ASSETS = [
   '/', '/index.html', '/styles.css', '/app.js', '/manifest.json',
   '/data/tabuladores.json', '/data/financiamiento.json', '/data/seguros.json', '/data/garantias.json'
