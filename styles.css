@@ -154,3 +154,39 @@ html, body { height: 100%; background: var(--bg); color: var(--text);
 }
 /* Notch acorde al pill compacto */
 .app-tabbar::before { width: 96px; height: 26px; }
+
+
+/* === Offcanvas menu contrast fix === */
+.app-drawer {
+  color: var(--text);
+  /* Override de variables Bootstrap SOLO dentro del drawer */
+  --bs-list-group-color: var(--text);
+  --bs-list-group-bg: transparent;
+  --bs-list-group-border-color: var(--divider);
+  --bs-list-group-action-color: var(--text);
+  --bs-list-group-action-hover-color: #fff;
+  --bs-list-group-action-hover-bg: var(--surface-alt);
+  --bs-list-group-action-active-color: #fff;
+  --bs-list-group-action-active-bg: var(--surface-alt);
+}
+
+.app-drawer .list-group-item {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-color: var(--divider) !important;
+  opacity: 1 !important;
+}
+
+.app-drawer .list-group-item .material-symbols-rounded {
+  color: var(--text-2) !important;
+  opacity: 1 !important;
+}
+
+.app-drawer .list-group-item:hover,
+.app-drawer .list-group-item:focus {
+  background: var(--surface-alt) !important;
+  color: #fff !important;
+}
+
+/* Neutraliza .text-body heredado en la lista del menú */
+.app-drawer .text-body { color: var(--text) !important; opacity: 1 !important; }
