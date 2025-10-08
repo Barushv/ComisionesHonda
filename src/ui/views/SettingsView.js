@@ -1,1 +1,1 @@
-// Vista Ajustes
+export function SettingsView(){return `<div class='p-3 text-secondary'>Configuración (pendiente de implementar)</div>`;}

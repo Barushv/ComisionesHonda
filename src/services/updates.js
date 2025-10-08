@@ -1,1 +1,1 @@
-// Detectar cambios en /data y mostrar banner de actualización
+export function checkForUpdates(){ /* noop: SW se encarga */ }

@@ -1,1 +1,1 @@
-// Componente toast
+export function toast(message){const c=document.getElementById('toastArea');const w=document.createElement('div');w.className='toast align-items-center text-bg-dark border-0 show';w.setAttribute('role','alert');w.setAttribute('aria-live','assertive');w.setAttribute('aria-atomic','true');w.innerHTML=`<div class="d-flex"><div class="toast-body">${message}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>`;c.appendChild(w);setTimeout(()=>w.remove(),3000);}

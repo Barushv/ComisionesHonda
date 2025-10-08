@@ -1,0 +1,1 @@
+Coloca aquí SVGs de Material Symbols si deseas usar íconos SVG locales.

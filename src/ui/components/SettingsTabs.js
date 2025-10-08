@@ -1,1 +1,1 @@
-// Componente ajustes de comisiones
+export function SettingsTabs(){return `<div class='p-3 text-secondary'>Ajustes (pendiente de implementar)</div>`;}

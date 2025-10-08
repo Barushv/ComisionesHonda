@@ -1,1 +1,1 @@
-// Vista Exportación (resumen y preview)
+export function ExportView(){return `<div class='p-3 text-secondary'>Exportación (pendiente de implementar)</div>`;}

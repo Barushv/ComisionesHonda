@@ -1,1 +1,1 @@
-// Validaciones y esquemas para formularios y datos
+export const validators = {};
