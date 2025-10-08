@@ -1,20 +1,20 @@
 // src/core/state.js
-import { summarize } from './calc.js';
+import { summarize } from "./calc.js";
 
-import { loadState, saveState } from '../services/db.js';
-const STORAGE_KEY = 'comisionesgo-v1';
+import { loadState, saveState } from "../services/db.js";
+const STORAGE_KEY = "comisionesgo-v1";
 
 export const tablas = {
   tabuladores: null,
   financiamiento: null,
   seguros: null,
-  garantias: null
+  garantias: null,
 };
 
 export const store = {
-  ventas: [],          // array de ventas
-  resumen: null,       // {tramo, totalUnidades, q1, q2, total, ventas:[]}
-  mesActivo: null,     // string 'Octubre 2025' (placeholder)
+  ventas: [], // array de ventas
+  resumen: null, // {tramo, totalUnidades, q1, q2, total, ventas:[]}
+  mesActivo: null, // string 'Octubre 2025' (placeholder)
 };
 
 async function loadLS() {
@@ -22,13 +22,17 @@ async function loadLS() {
   if (st) return st;
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return null;
-  try { return JSON.parse(raw); } catch { return null; }
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 async function saveLS() {
   const payload = {
     ventas: store.ventas,
-    mesActivo: store.mesActivo
+    mesActivo: store.mesActivo,
   };
   await saveState(payload);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -36,10 +40,10 @@ async function saveLS() {
 
 export async function loadTablas() {
   const [tab, fin, seg, gar] = await Promise.all([
-    fetch('/data/tabuladores.json').then(r => r.json()),
-    fetch('/data/financiamiento.json').then(r => r.json()),
-    fetch('/data/seguros.json').then(r => r.json()),
-    fetch('/data/garantias.json').then(r => r.json()),
+    fetch("./data/tabuladores.json").then((r) => r.json()),
+    fetch("./data/financiamiento.json").then((r) => r.json()),
+    fetch("./data/seguros.json").then((r) => r.json()),
+    fetch("./data/garantias.json").then((r) => r.json()),
   ]);
   tablas.tabuladores = tab;
   tablas.financiamiento = fin;
