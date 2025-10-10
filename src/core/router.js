@@ -1,0 +1,1 @@
+export function formatMonth(d=new Date()){return new Intl.DateTimeFormat('es-MX',{month:'long',year:'numeric'}).format(d).replace(/^\w/,c=>c.toUpperCase());}

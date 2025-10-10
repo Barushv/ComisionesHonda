@@ -1,0 +1,1 @@
+export function ExportView(){return `<div class='p-3 text-secondary'>Exportación (usa el botón de la barra inferior)</div>`;}

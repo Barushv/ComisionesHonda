@@ -1,0 +1,1 @@
+export function checkForUpdates(){ /* PWA updates handled by SW */ }
